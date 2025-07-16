@@ -1,7 +1,7 @@
-'use client';
-import React, { useState, useEffect } from 'react';
-import { Menu, Clock, Trash2, Check, X } from 'lucide-react';
-import Sidebar from '../../components/sidebar';
+"use client";
+import React, { useState, useEffect } from "react";
+import { Menu, Clock, Trash2, Check, X } from "lucide-react";
+import Sidebar from "../../components/sidebar";
 
 interface Product {
   id: number;
@@ -18,7 +18,7 @@ export default function ProductListPage(): React.ReactElement {
 
   useEffect(() => {
     async function fetchJobs() {
-      const res = await fetch('/api/jobs');
+      const res = await fetch("/api/jobs");
       if (res.ok) {
         const data = await res.json();
         // Group jobs by productId and keep only the latest job for each product
@@ -27,7 +27,8 @@ export default function ProductListPage(): React.ReactElement {
           const productId = job.product.id;
           if (
             !latestJobByProduct[productId] ||
-            new Date(job.createdAt) > new Date(latestJobByProduct[productId].createdAt)
+            new Date(job.createdAt) >
+              new Date(latestJobByProduct[productId].createdAt)
           ) {
             latestJobByProduct[productId] = job;
           }
@@ -41,7 +42,10 @@ export default function ProductListPage(): React.ReactElement {
             status: job.state,
             date: new Date(job.createdAt).toLocaleDateString(),
           }))
-          .sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
+          .sort(
+            (a: any, b: any) =>
+              new Date(b.date).getTime() - new Date(a.date).getTime()
+          );
         setProducts(productsArr);
       }
     }
@@ -53,7 +57,7 @@ export default function ProductListPage(): React.ReactElement {
   };
 
   const handleProductClick = (product: Product): void => {
-    console.log('Product clicked:', product);
+    console.log("Product clicked:", product);
     // Navigate to product details or perform action
   };
 
@@ -67,10 +71,10 @@ export default function ProductListPage(): React.ReactElement {
       // This prevents affecting procount tab and other parts of the system
       setProducts([]);
       setIsConfirmingClear(false);
-      console.log('Product list cleared (local view only)');
+      console.log("Product list cleared (local view only)");
     } catch (error) {
-      console.error('Error clearing product list:', error);
-      alert('Failed to clear product list.');
+      console.error("Error clearing product list:", error);
+      alert("Failed to clear product list.");
     }
   };
 
@@ -81,23 +85,23 @@ export default function ProductListPage(): React.ReactElement {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Sidebar Component */}
-      <Sidebar 
-        isOpen={sidebarOpen} 
-        onClose={() => setSidebarOpen(false)} 
-        username={null}
+      <Sidebar
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        username={""}
       />
 
       {/* Header */}
       <header className="bg-white shadow-sm px-4 py-4 flex items-center justify-between">
-        <button 
+        <button
           onClick={handleMenuClick}
           className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
         >
           <Menu className="w-6 h-6 text-blue-700" />
         </button>
-        
+
         <h1 className="text-xl font-semibold text-blue-700">Recently Added</h1>
-        
+
         <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center">
           <span className="text-white font-medium text-lg">A</span>
         </div>
@@ -111,7 +115,9 @@ export default function ProductListPage(): React.ReactElement {
             <div className="mb-4 flex justify-end items-center space-x-3">
               {isConfirmingClear ? (
                 <>
-                  <span className="text-sm text-gray-600">Confirm clear all?</span>
+                  <span className="text-sm text-gray-600">
+                    Confirm clear all?
+                  </span>
                   <button
                     onClick={confirmClearProducts}
                     className="text-green-600 hover:text-green-700 transition-colors"
@@ -183,7 +189,9 @@ export default function ProductListPage(): React.ReactElement {
               <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-gray-400 text-2xl">📦</span>
               </div>
-              <h3 className="text-gray-500 font-medium mb-2">No products found</h3>
+              <h3 className="text-gray-500 font-medium mb-2">
+                No products found
+              </h3>
               <p className="text-gray-400 text-sm">
                 Add products to see them listed here
               </p>
@@ -197,9 +205,7 @@ export default function ProductListPage(): React.ReactElement {
                 <div className="text-2xl font-bold text-gray-900 mb-1">
                   {products.length}
                 </div>
-                <div className="text-gray-500 text-sm">
-                  Total Products
-                </div>
+                <div className="text-gray-500 text-sm">Total Products</div>
               </div>
               {/* You can add more summary stats here if needed */}
             </div>
