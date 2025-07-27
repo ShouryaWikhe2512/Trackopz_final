@@ -418,7 +418,7 @@ import { Menu, Download, ChevronDown } from "lucide-react";
 import Sidebar from "../../components/sidebarm";
 
 // Type definitions
-type ReportType = "Date Wise" | "Weekly" | "Monthly";
+type ReportType = "Date Wise" | "Weekly" | "Monthly" | "Process Wise";
 
 interface RecentDownload {
   id: number;
